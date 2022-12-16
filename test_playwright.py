@@ -1,5 +1,6 @@
 import pathlib
-
+import time
+import httpx
 from playwright.sync_api import Playwright, sync_playwright
 
 import pandas as pd
@@ -132,4 +133,27 @@ def automate_ajmer():
         run(playwright)
 
 
+def check_jvvnl_bills():
+    print('welcome to JVVNL Bill Status')
+    df = pd.read_csv(pathlib.Path().absolute().joinpath('data/jaipur/source.csv'))
+    df.drop_duplicates()
+    df.dropna()
+    data = []
+    for index, row in df.iterrows():
+        if index == -1:
+            break
+        print(f'Working for {row["kno"]} with ID: {index}')
+        time.sleep(1)
+        client = httpx.Client(http2=True)
+        r = client.get(f'https://www.bijlimitra.com/accountdetailsByKno/{row["kno"]}', timeout=50)
+        if r.status_code == httpx.codes.OK:
+            data.append(r.json()[0])
+        client.close()
+        result = pd.DataFrame(data)
+        result.to_csv(pathlib.Path().absolute().joinpath('data/jaipur/result.csv'), index=False)
+        print('Result Saved')
+    print('Bye')
+
+
+check_jvvnl_bills()
 
