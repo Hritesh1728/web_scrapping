@@ -147,6 +147,9 @@ def check_jvvnl_bills():
         client = httpx.Client(http2=True)
         r = client.get(f'https://www.bijlimitra.com/accountdetailsByKno/{row["kno"]}', timeout=50)
         if r.status_code == httpx.codes.OK:
+            # if r.json() == 1:
+            #     data.append(list(f'Invalid kno = {row["kno"]}'))
+            #     continue
             data.append(r.json()[0])
         client.close()
         result = pd.DataFrame(data)
@@ -155,5 +158,20 @@ def check_jvvnl_bills():
     print('Bye')
 
 
-check_jvvnl_bills()
+flag = 1
+while flag:
+    board = input(
+        "Choose the board as 1 or 2 or 3 whose indication are below:-\n "
+        "1. Ajmer Board \n 2. Jaipur Board \n 3. Jodhpur Board \n Your Input:- ")
 
+    if board == '1':
+        flag = 0
+        automate_ajmer()
+    elif board == '2':
+        flag = 0
+        check_jvvnl_bills()
+    elif board == '3':
+        flag = 0
+        automate_jodhpur()
+    else:
+        print("------Input only from 1,2,3 for the respective boards------------------")
