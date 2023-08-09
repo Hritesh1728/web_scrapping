@@ -25,10 +25,9 @@ This project uses the automation tool "PlayWright" and the programming language 
       py test_playwright.py
     ```
 
-3. Choose the electricity board by entering 1 or 2 or 3 in the command prompt which looks like as below:-
-    ![Input image for playwright](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
-4. Wait for the task to complete and finally, you will get the output CSV file in the same directory where the **"source.csv"** lies with the name **"result.csv"**
+3. Choose the electricity board by entering 1 or 2 or 3 in the command prompt which looks like as below:-  
+    ![Choose Board Shot](choose_board_shot.png)
+5. Wait for the task to complete and finally, you will get the output CSV file in the same directory where the **"source.csv"** lies with the name **"result.csv"**
 The data provided by the output files are: -
 
     |  ___________  |    _______________       |    _________  |      ___________   |
